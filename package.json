@@ -1,0 +1,22 @@
+{
+    "name": "koa2js",
+    "version": "1.0.0",
+    "description": "use this name",
+    "main": "main.js",
+    "type": "module",
+    "scripts": {
+        "dev": "npx tsx main.ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "ts-node": "^10.9.2",
+        "@types/koa": "^2.15.0",
+        "tsx": "^4.7.2",
+        "typescript": "^5.4.4"
+    },
+    "dependencies": {
+        "koa": "^2.15.2"
+    }
+}
