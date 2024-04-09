@@ -1,4 +1,6 @@
 import { ModuleParams } from "../types/core.type.ts";
+import { Context } from "koa";
+import Router from "koa-router";
 
 export function Module(options: ModuleParams): any {
     return function (target) {
@@ -11,19 +13,60 @@ export function Module(options: ModuleParams): any {
 export function Control(path: string): any {
     return function (target) {
         target.prefix = path;
+        target.router.prefix(path);
     };
 }
 
 export function Inject(target: any): void {}
 
-export function Post(path: string): any {}
-
-export function Get(path: string): any {
-    return function (target, b, c) {
-        console.log(target, b, c);
+export function Post(path: string): any {
+    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        if (!target.constructor?.router) {
+            target.constructor.router = new Router();
+        }
+        const router = target.constructor.router;
+        router.post(path, async (ctx: Context) => {
+            descriptor.value(ctx);
+        });
+        return descriptor;
     };
 }
 
-export function Put(path: string): any {}
+export function Get(path: string): any {
+    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        if (!target.constructor?.router) {
+            target.constructor.router = new Router();
+        }
+        const router = target.constructor.router;
+        router.get(path, async (ctx: Context) => {
+            descriptor.value(ctx);
+        });
+        return descriptor;
+    };
+}
 
-export function Delete(path: string): any {}
+export function Put(path: string): any {
+    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        if (!target.constructor?.router) {
+            target.constructor.router = new Router();
+        }
+        const router = target.constructor.router;
+        router.put(path, async (ctx: Context) => {
+            descriptor.value(ctx);
+        });
+        return descriptor;
+    };
+}
+
+export function Delete(path: string): any {
+    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        if (!target.constructor?.router) {
+            target.constructor.router = new Router();
+        }
+        const router = target.constructor.router;
+        router.delete(path, async (ctx: Context) => {
+            descriptor.value(ctx);
+        });
+        return descriptor;
+    };
+}
