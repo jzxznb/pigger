@@ -14,6 +14,7 @@ export function Control(path: string): any {
     return function (target) {
         target.prefix = path;
         target.router.prefix(path);
+        return target;
     };
 }
 
@@ -26,7 +27,7 @@ export function Post(path: string): any {
         }
         const router = target.constructor.router;
         router.post(path, async (ctx: Context) => {
-            descriptor.value(ctx);
+            descriptor.value.call(target.constructor, ctx);
         });
         return descriptor;
     };
@@ -39,7 +40,7 @@ export function Get(path: string): any {
         }
         const router = target.constructor.router;
         router.get(path, async (ctx: Context) => {
-            descriptor.value(ctx);
+            descriptor.value.call(target.constructor, ctx);
         });
         return descriptor;
     };
@@ -52,7 +53,7 @@ export function Put(path: string): any {
         }
         const router = target.constructor.router;
         router.put(path, async (ctx: Context) => {
-            descriptor.value(ctx);
+            descriptor.value.call(target.constructor, ctx);
         });
         return descriptor;
     };
@@ -65,7 +66,7 @@ export function Delete(path: string): any {
         }
         const router = target.constructor.router;
         router.delete(path, async (ctx: Context) => {
-            descriptor.value(ctx);
+            descriptor.value.call(target.constructor, ctx);
         });
         return descriptor;
     };

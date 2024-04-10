@@ -1,4 +1,5 @@
 import Koa from "koa";
+import { mergeClass } from "./src/util.ts";
 
 class Whale extends Koa {
     server?: Koa = null;
@@ -7,10 +8,15 @@ class Whale extends Koa {
         super(options);
         return this;
     }
-    createFactory(module: any): Whale {
+    createFactory(module): Whale {
         const controlList = [];
         const findControl = appModule => {
             controlList.push(...appModule.controls);
+            const service = mergeClass(appModule.injects);
+            appModule.controls.forEach(item => {
+                if (!item.prototype) return;
+                item.service = service;
+            });
             appModule?.modules.forEach(item => findControl(item));
         };
         findControl(module);

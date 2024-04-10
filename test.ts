@@ -1,12 +1,18 @@
 import Whale from "./main.ts";
 import { Control, Module, Get, Inject, Put, Post, Delete } from "./src/core.ts";
-import { HttpMethodEnum, koaBody } from "koa-body";
+import { koaBody } from "koa-body";
 
+class AppService {
+    find(p) {
+        console.log("这是", p);
+    }
+}
 @Control("/user")
 class UserControl {
-    @Post("/print")
+    [x: string]: any;
+    @Get("/print")
     print(ctx) {
-        console.log(ctx.request.body);
+        this.service.find("123");
         ctx.body = "user/hello2";
         return "user/hello";
     }
@@ -14,21 +20,19 @@ class UserControl {
 
 @Module({
     controls: [UserControl],
+    injects: [AppService],
 })
 class UserModule {}
 
 @Control("/app")
 class AppControl {
+    [x: string]: any;
     @Get("/print")
     async print(ctx) {
+        this.service.find("app");
         ctx.body = "12";
         return "hello";
     }
-}
-
-@Inject
-class AppService {
-    find() {}
 }
 
 @Module({
