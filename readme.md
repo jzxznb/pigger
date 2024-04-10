@@ -1,5 +1,5 @@
 ```typescript
-import Whale from "./main.ts";
+import Pigger from "pigger";
 import { Control, Module, Get, Inject, Put, Post, Delete } from "./src/core.ts";
 import { koaBody } from "koa-body";
 
