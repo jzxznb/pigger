@@ -1,9 +1,11 @@
 {
     "compilerOptions": {
-        "module": "NodeNext",
+        "module": "ESNext",
         "allowImportingTsExtensions": true,
         "noEmit": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "moduleResolution": "Node",
+        "allowSyntheticDefaultImports": true
     },
     "exclude": ["node_modules"]
 }

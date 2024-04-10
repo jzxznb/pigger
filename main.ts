@@ -1,5 +1,5 @@
 import Koa from "koa";
-import { mergeClass } from "./src/util.ts";
+import { mergeClass } from "./utils";
 
 class Pigger extends Koa {
     server?: Koa = null;
