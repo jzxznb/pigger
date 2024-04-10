@@ -1,14 +1,14 @@
 import Koa from "koa";
 import { mergeClass } from "./src/util.ts";
 
-class Whale extends Koa {
+class Pigger extends Koa {
     server?: Koa = null;
     controlList: any[] = [];
     constructor(options?: any) {
         super(options);
         return this;
     }
-    createFactory(module): Whale {
+    createFactory(module): Pigger {
         const controlList = [];
         const findControl = appModule => {
             controlList.push(...appModule.controls);
@@ -23,7 +23,7 @@ class Whale extends Koa {
         this.controlList = controlList;
         return this;
     }
-    routing(): Whale {
+    routing(): Pigger {
         this.controlList.forEach(control => {
             this.use(control.router.routes());
         });
@@ -31,4 +31,4 @@ class Whale extends Koa {
     }
 }
 
-export default Whale;
+export default Pigger;
