@@ -44,7 +44,7 @@ class AppControl {
 class AppModule {}
 
 const start = () => {
-    const app = new Whale();
+    const app = new Pigger();
     app.createFactory(AppModule);
     app.use(
         koaBody({
