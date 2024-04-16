@@ -1,5 +1,5 @@
 import Whale from "./main.ts";
-import { Control, Module, Get, Inject, Put, Post, Delete } from "./src/core.ts";
+import { Control, Module, Get, Inject, Put, Post, Delete } from "./core";
 import { koaBody } from "koa-body";
 
 class AppService {
@@ -10,10 +10,10 @@ class AppService {
 @Control("/user")
 class UserControl {
     [x: string]: any;
-    @Get("/print")
+    @Post("/print")
     print(ctx) {
         this.service.find("123");
-        ctx.body = "user/hello2";
+        ctx.response.body = { data: "user/hello2" };
         return "user/hello";
     }
 }
