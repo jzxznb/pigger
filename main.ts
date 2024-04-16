@@ -25,7 +25,7 @@ class Pigger extends Koa {
     }
     routing(): Pigger {
         this.controlList.forEach(control => {
-            this.use(control.router.routes());
+            control.router?.routes && this.use(control.router.routes());
         });
         return this;
     }
