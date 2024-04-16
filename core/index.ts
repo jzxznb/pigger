@@ -13,7 +13,7 @@ export function Module(options: ModuleParams): any {
 export function Control(path: string): any {
     return function (target) {
         target.prefix = path;
-        target.router.prefix(path);
+        target.router && target.router.prefix(path);
         return target;
     };
 }
