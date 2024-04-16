@@ -1,5 +1,5 @@
 import { ModuleParams } from "../types/core.type.ts";
-import { Context } from "koa";
+import { Context, Next } from "koa";
 import Router from "koa-router";
 
 export function Module(options: ModuleParams): any {
@@ -26,8 +26,8 @@ export function Post(path: string): any {
             target.constructor.router = new Router();
         }
         const router = target.constructor.router;
-        router.post(path, async (ctx: Context) => {
-            descriptor.value.call(target.constructor, ctx);
+        router.post(path, async (ctx: Context, next: Next) => {
+            await descriptor.value.call(target.constructor, ctx);
         });
         return descriptor;
     };
@@ -40,7 +40,7 @@ export function Get(path: string): any {
         }
         const router = target.constructor.router;
         router.get(path, async (ctx: Context) => {
-            descriptor.value.call(target.constructor, ctx);
+            await descriptor.value.call(target.constructor, ctx);
         });
         return descriptor;
     };
@@ -53,7 +53,7 @@ export function Put(path: string): any {
         }
         const router = target.constructor.router;
         router.put(path, async (ctx: Context) => {
-            descriptor.value.call(target.constructor, ctx);
+            await descriptor.value.call(target.constructor, ctx);
         });
         return descriptor;
     };
@@ -66,7 +66,7 @@ export function Delete(path: string): any {
         }
         const router = target.constructor.router;
         router.delete(path, async (ctx: Context) => {
-            descriptor.value.call(target.constructor, ctx);
+            await descriptor.value.call(target.constructor, ctx);
         });
         return descriptor;
     };
